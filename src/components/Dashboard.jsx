@@ -41,7 +41,7 @@ function Dashboard() {
                 
                <div className="dashboard-controls">
     <div className="task-filter">
-        <label htmlFor="priority-filter">Task Priority: </label>
+        <label htmlFor="priority-filter">Filter by Priority: </label>
 
         <select
             id="priority-filter"
