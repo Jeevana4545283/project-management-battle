@@ -1,6 +1,14 @@
 export function getTasks(tasks, filters = {}) {
     let filteredTasks = [...tasks];
 
+   if (filters.priority) {
+    filteredTasks = filteredTasks.filter(
+        task =>
+            task.priority?.toLowerCase() ===
+            filters.priority.toLowerCase()
+    );
+}
+
     // TODO: Apply filters here based on the filters object
     // Developers will add priority, search, status, and assignee filters here.
 
