@@ -3,9 +3,10 @@ export function getProjects(projects, filters = {}) {
 
     // Project search
     if (filters.search) {
-        const searchText = filters.search.toLowerCase();
+        const searchText = filters.search.toLowerCase().trim();
 
         filteredProjects = filteredProjects.filter(project =>
+            project.name &&
             project.name.toLowerCase().includes(searchText)
         );
     }
