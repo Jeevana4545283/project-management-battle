@@ -8,7 +8,6 @@ export function getTasks(tasks, filters = {}) {
             filters.priority.toLowerCase()
     );
 }
-    
 
     // TODO: Apply filters here based on the filters object
     // Developers will add priority, search, status, and assignee filters here.
