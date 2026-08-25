@@ -39,13 +39,31 @@ function Dashboard() {
             <header className="dashboard-header">
                 <h1>Project Management Dashboard</h1>
                 
-                {/* CONFLICT ZONE 5: DASHBOARD CONTROLS */}
-                <div className="dashboard-controls">
-                    {/* Developers will add UI controls here: Project Search, Filters, Stats UI, Sorting UI */}
-                    <div className="stat-card">
-                        <span>Total Tasks: {stats.totalTasks}</span>
-                    </div>
-                </div>
+               <div className="dashboard-controls">
+    <div className="task-filter">
+        <label htmlFor="priority-filter">Task Priority: </label>
+
+        <select
+            id="priority-filter"
+            value={taskFilters.priority || ''}
+            onChange={(e) =>
+                setTaskFilters({
+                    ...taskFilters,
+                    priority: e.target.value
+                })
+            }
+        >
+            <option value="">All</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+    </div>
+
+    <div className="stat-card">
+        <span>Total Tasks: {stats.totalTasks}</span>
+    </div>
+</div>
             </header>
 
             <div className="dashboard-content">
