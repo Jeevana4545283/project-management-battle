@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProjectList from './ProjectList';
 import TaskList from './TaskList';
 import UserList from './UserList';
 import NotificationPanel from './NotificationPanel';
-import { projects as initialProjects, tasks as initialTasks, users as initialUsers, notifications as initialNotifications } from '../data/data';
+import {
+    projects as initialProjects,
+    tasks as initialTasks,
+    users as initialUsers,
+    notifications as initialNotifications
+} from '../data/data';
 import { getProjects } from '../utils/projectUtils';
 import { getTasks, createTask } from '../utils/taskUtils';
 import { calculateStats } from '../utils/dashboardUtils';
@@ -27,7 +32,7 @@ function Dashboard() {
         try {
             const updatedTasks = createTask(taskData, tasks);
             setTasks(updatedTasks);
-            
+
             // Note: Dev C might add notification logic here or in createTask directly
         } catch (error) {
             alert(error.message);
@@ -38,18 +43,52 @@ function Dashboard() {
         <div className="dashboard-container">
             <header className="dashboard-header">
                 <h1>Project Management Dashboard</h1>
-                
-                {/* CONFLICT ZONE 5: DASHBOARD CONTROLS */}
+
                 <div className="dashboard-controls">
-                    {/* Developers will add UI controls here: Project Search, Filters, Stats UI, Sorting UI */}
-                    <div className="stat-card">
-                        <span>Total Tasks: {stats.totalTasks}</span>
+
+                    {/* Task Priority Filter */}
+                    <div className="task-filter">
+                        <label htmlFor="priority-filter">
+                            Filter by Priority:
+                        </label>
+
+                        <select
+                            id="priority-filter"
+                            value={taskFilters.priority || ''}
+                            onChange={(e) =>
+                                setTaskFilters({
+                                    ...taskFilters,
+                                    priority: e.target.value
+                                })
+                            }
+                        >
+                            <option value="">All</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
                     </div>
+
+                    {/* Total Tasks */}
+                    <div className="stat-card">
+                        <span>
+                            Total Tasks: {stats.totalTasks}
+                        </span>
+                    </div>
+
+                    {/* Active Tasks */}
+                    <div className="stat-card">
+                        <span>
+                            Active Tasks: {stats.activeTasks}
+                        </span>
+                    </div>
+
                 </div>
             </header>
 
             <div className="dashboard-content">
                 <main className="main-content">
+
                     <section className="dashboard-section">
                         <h2>Projects</h2>
                         <ProjectList projects={displayedProjects} />
@@ -57,17 +96,25 @@ function Dashboard() {
 
                     <section className="dashboard-section">
                         <h2>Tasks</h2>
-                        <TaskList tasks={displayedTasks} onCreateTask={handleCreateTask} projects={projects} users={users} />
+                        <TaskList
+                            tasks={displayedTasks}
+                            onCreateTask={handleCreateTask}
+                            projects={projects}
+                            users={users}
+                        />
                     </section>
 
                     <section className="dashboard-section">
                         <h2>Team Members</h2>
                         <UserList users={users} />
                     </section>
+
                 </main>
 
                 <aside className="sidebar">
-                    <NotificationPanel notifications={notifications} />
+                    <NotificationPanel
+                        notifications={notifications}
+                    />
                 </aside>
             </div>
         </div>
