@@ -1,6 +1,14 @@
 export function getTasks(tasks, filters = {}) {
     let filteredTasks = [...tasks];
 
+<<<<<<< HEAD
+    // Status filter
+    if (filters.status && filters.status !== "All") {
+        filteredTasks = filteredTasks.filter(task =>
+            task.status === filters.status
+        );
+    }
+=======
    if (filters.priority) {
     filteredTasks = filteredTasks.filter(
         task =>
@@ -11,17 +19,17 @@ export function getTasks(tasks, filters = {}) {
 
     // TODO: Apply filters here based on the filters object
     // Developers will add priority, search, status, and assignee filters here.
+>>>>>>> 366a985f5e1b4cb2c052445b0ab5644ee3ca5ee2
 
-    return filteredTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return filteredTasks.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
 }
 
 export function createTask(taskData, existingTasks) {
-    // Basic validation
     if (!taskData.title) {
         throw new Error("Task title is required");
     }
-
-    // TODO: Add more validation logic here (e.g. project validation, duplicate validation)
 
     const newTask = {
         id: `T-${Date.now()}`,
@@ -29,8 +37,6 @@ export function createTask(taskData, existingTasks) {
         status: taskData.status || "Active",
         createdAt: new Date().toISOString()
     };
-    
-    // TODO: Add side effects here (e.g. trigger notifications)
 
     return [...existingTasks, newTask];
 }
